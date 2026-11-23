@@ -1,4 +1,4 @@
-package com.example.bookeasy;
+package com.example.bookeasy.entities;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -26,6 +26,11 @@ import jakarta.validation.constraints.Size;
 		@Index(name = "idx_bookings_customer_email", columnList = "customer_email")
 })
 public class Booking {
+
+	public enum BookingStatus {
+		CONFIRMED,
+		CANCELLED
+	}
 
 	private static final int CUSTOMER_NAME_MAX_LENGTH = 100;
 	private static final int CUSTOMER_EMAIL_MAX_LENGTH = 254;
