@@ -1,0 +1,295 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Booking API",
+    "version": "1.0.0",
+    "description": "BookEasy is a centralized booking and reservation\nmanagement application designed for small service-based\nbusinesses.\n\nThe API provides RESTful JSON endpoints for managing\nservices, customers, and bookings.\n\nIt replaces manual spreadsheets, email communication,\nand messaging logs with a centralized booking system.\n"
+  },
+  "tags": [
+    {
+      "name": "Bookings",
+      "description": "Booking creation operations"
+    }
+  ],
+  "paths": {
+    "/bookings": {
+      "post": {
+        "tags": [
+          "Bookings"
+        ],
+        "summary": "Create a booking",
+        "description": "Creates a new customer booking.",
+        "operationId": "createBooking",
+        "parameters": [
+          {
+            "name": "X-Correlation-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Unique identifier used to correlate the request and response."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBookingRequest"
+              },
+              "example": {
+                "customerName": "John Doe",
+                "customerEmail": "john.doe@example.com",
+                "bookingDate": "2026-12-01",
+                "bookingTime": "14:30",
+                "description": "Consultation appointment"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Booking successfully created.",
+            "headers": {
+              "X-Correlation-ID": {
+                "description": "Correlation identifier returned for the request.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Booking"
+                },
+                "example": {
+                  "id": "1",
+                  "customerName": "John Doe",
+                  "customerEmail": "john.doe@example.com",
+                  "bookingDate": "2026-12-01",
+                  "bookingTime": "14:30",
+                  "description": "Consultation appointment",
+                  "status": "pending",
+                  "createdAt": "2026-11-25T18:23:00Z",
+                  "updatedAt": "2026-11-25T18:23:00Z"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request data.",
+            "headers": {
+              "X-Correlation-ID": {
+                "description": "Correlation identifier returned for the request.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Booking conflict.",
+            "headers": {
+              "X-Correlation-ID": {
+                "description": "Correlation identifier returned for the request.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Request validation failed.",
+            "headers": {
+              "X-Correlation-ID": {
+                "description": "Correlation identifier returned for the request.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "headers": {
+              "X-Correlation-ID": {
+                "description": "Correlation identifier returned for the request.",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CreateBookingRequest": {
+        "type": "object",
+        "properties": {
+          "customerName": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 150,
+            "description": "Customer's full name."
+          },
+          "customerEmail": {
+            "type": "string",
+            "format": "email",
+            "maxLength": 254,
+            "description": "Customer's email address."
+          },
+          "bookingDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Booking date (YYYY-MM-DD)."
+          },
+          "bookingTime": {
+            "type": "string",
+            "pattern": "^(?:[01]\\d|2[0-3]):[0-5]\\d$",
+            "description": "Booking time in 24-hour format (HH:mm)."
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 1000,
+            "description": "Additional booking information."
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "confirmed",
+              "cancelled"
+            ],
+            "default": "pending",
+            "description": "Booking status."
+          }
+        },
+        "required": [
+          "customerName",
+          "customerEmail",
+          "bookingDate",
+          "bookingTime"
+        ]
+      },
+      "Booking": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "readOnly": true
+          },
+          "customerName": {
+            "type": "string"
+          },
+          "customerEmail": {
+            "type": "string",
+            "format": "email"
+          },
+          "bookingDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "bookingTime": {
+            "type": "string",
+            "pattern": "^(?:[01]\\d|2[0-3]):[0-5]\\d$"
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "confirmed",
+              "cancelled"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          }
+        },
+        "required": [
+          "id",
+          "customerName",
+          "customerEmail",
+          "bookingDate",
+          "bookingTime",
+          "status",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "example": "VALIDATION_ERROR"
+          },
+          "message": {
+            "type": "string",
+            "example": "Invalid booking request."
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2026-11-25T20:30:00+02:00"
+          }
+        },
+        "required": [
+          "error",
+          "message",
+          "timestamp"
+        ]
+      }
+    }
+  }
+}
