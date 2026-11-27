@@ -5,9 +5,10 @@
  */
 package com.example.bookeasy.controller.api;
 
-import com.example.bookeasy.controller.Booking;
-import com.example.bookeasy.controller.CreateBookingRequest;
 import com.example.bookeasy.controller.ErrorResponse;
+import com.example.bookeasy.controller.dto.Booking;
+import com.example.bookeasy.controller.dto.CreateBookingRequest;
+
 import java.util.UUID;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
