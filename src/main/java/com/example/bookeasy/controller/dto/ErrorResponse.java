@@ -1,4 +1,4 @@
-package com.example.bookeasy.controller;
+package com.example.bookeasy.controller.dto;
 
 import java.net.URI;
 import java.util.Objects;
