@@ -5,10 +5,13 @@ import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 
+import org.springframework.stereotype.Component;
+
 import com.example.bookeasy.controller.dto.CreateBookingRequest;
 import com.example.bookeasy.entities.Booking;
 import com.example.bookeasy.entities.Booking.BookingStatus;
 
+@Component
 public class BookingMapper {
 
 	public Booking toEntity(CreateBookingRequest source) {

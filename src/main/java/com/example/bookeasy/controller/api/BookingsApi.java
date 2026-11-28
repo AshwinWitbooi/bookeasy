@@ -5,7 +5,7 @@
  */
 package com.example.bookeasy.controller.api;
 
-import com.example.bookeasy.controller.ErrorResponse;
+import com.example.bookeasy.controller.dto.ErrorResponse;
 import com.example.bookeasy.controller.dto.Booking;
 import com.example.bookeasy.controller.dto.CreateBookingRequest;
 
