@@ -179,7 +179,7 @@ public class CreateBookingRequest {
    * Get venue
    * @return venue
    */
-
+  @NotNull @Size(min = 2, max = 255) 
   @Schema(name = "venue", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("venue")
   public String getVenue() {
