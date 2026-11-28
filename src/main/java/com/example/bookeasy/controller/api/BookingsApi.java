@@ -78,7 +78,7 @@ public interface BookingsApi {
     )
     @RequestMapping(
         method = RequestMethod.POST,
-        value = "/bookings",
+        value = "/api/bookings",
         produces = { "application/json" },
         consumes = { "application/json" }
     )

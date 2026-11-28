@@ -12,7 +12,7 @@
     }
   ],
   "paths": {
-    "/bookings": {
+    "/api/bookings": {
       "post": {
         "tags": [
           "Bookings"
