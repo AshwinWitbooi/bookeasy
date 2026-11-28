@@ -36,6 +36,8 @@ public class Booking {
 
   private String bookingTime;
 
+  private String venue;
+
   private @Nullable String description = null;
 
   /**
@@ -201,6 +203,26 @@ public class Booking {
     this.bookingTime = bookingTime;
   }
 
+  public Booking venue(String venue) {
+    this.venue = venue;
+    return this;
+  }
+
+  /**
+   * Get venue
+   * @return venue
+   */
+
+  @Schema(name = "venue", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("venue")
+  public String getVenue() {
+    return venue;
+  }
+
+  public void setVenue(String venue) {
+    this.venue = venue;
+  }
+
   public Booking description(String description) {
     this.description = description;
     return this;
@@ -295,6 +317,7 @@ public class Booking {
         Objects.equals(this.customerEmail, booking.customerEmail) &&
         Objects.equals(this.bookingDate, booking.bookingDate) &&
         Objects.equals(this.bookingTime, booking.bookingTime) &&
+        Objects.equals(this.venue, booking.venue) &&
         Objects.equals(this.description, booking.description) &&
         Objects.equals(this.status, booking.status) &&
         Objects.equals(this.createdAt, booking.createdAt) &&
@@ -303,7 +326,7 @@ public class Booking {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, customerName, customerEmail, bookingDate, bookingTime, description, status, createdAt, updatedAt);
+    return Objects.hash(id, customerName, customerEmail, bookingDate, bookingTime, venue, description, status, createdAt, updatedAt);
   }
 
   @Override
@@ -315,6 +338,7 @@ public class Booking {
     sb.append("    customerEmail: ").append(toIndentedString(customerEmail)).append("\n");
     sb.append("    bookingDate: ").append(toIndentedString(bookingDate)).append("\n");
     sb.append("    bookingTime: ").append(toIndentedString(bookingTime)).append("\n");
+    sb.append("    venue: ").append(toIndentedString(venue)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");

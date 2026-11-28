@@ -26,13 +26,15 @@ public class BookingMapper {
 			status = BookingStatus.CONFIRMED;
 		}
 
-		return new Booking(
+		Booking target = new Booking(
 				source.getCustomerName(),
 				source.getCustomerEmail(),
 				source.getBookingDate(),
 				source.getBookingTime() == null ? null : LocalTime.parse(source.getBookingTime()),
 				source.getDescription(),
 				status);
+		target.setVenue(source.getVenue());
+		return target;
 	}
 
 	public com.example.bookeasy.controller.dto.Booking toDto(Booking source) {
@@ -56,6 +58,7 @@ public class BookingMapper {
 		target.setBookingTime(source.getBookingTime() == null
 				? null
 				: source.getBookingTime().format(DateTimeFormatter.ofPattern("HH:mm")));
+		target.setVenue(source.getVenue());
 		target.setDescription(source.getDescription());
 		target.setStatus(status);
 		target.setCreatedAt(source.getCreatedAt() == null

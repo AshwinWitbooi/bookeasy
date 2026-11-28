@@ -59,6 +59,9 @@ public class Booking {
 	@Column(name = "booking_time", nullable = false)
 	private LocalTime bookingTime;
 
+	@Column(name = "venue")
+	private String venue;
+
 	@Column(name = "description", columnDefinition = "TEXT")
 	private String description;
 
@@ -132,6 +135,14 @@ public class Booking {
 
 	public void setBookingTime(LocalTime bookingTime) {
 		this.bookingTime = bookingTime;
+	}
+
+	public String getVenue() {
+		return venue;
+	}
+
+	public void setVenue(String venue) {
+		this.venue = venue;
 	}
 
 	public String getDescription() {

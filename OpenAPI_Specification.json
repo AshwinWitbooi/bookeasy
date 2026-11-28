@@ -43,6 +43,7 @@
                 "customerEmail": "john.doe@example.com",
                 "bookingDate": "2026-12-01",
                 "bookingTime": "14:30",
+                "venue": "Main Conference Room",
                 "description": "Consultation appointment"
               }
             }
@@ -71,6 +72,7 @@
                   "customerEmail": "john.doe@example.com",
                   "bookingDate": "2026-12-01",
                   "bookingTime": "14:30",
+                  "venue": "Main Conference Room",
                   "description": "Consultation appointment",
                   "status": "pending",
                   "createdAt": "2026-11-25T18:23:00Z",
@@ -186,6 +188,9 @@
             "pattern": "^(?:[01]\\d|2[0-3]):[0-5]\\d$",
             "description": "Booking time in 24-hour format (HH:mm)."
           },
+          "venue": {
+            "type": "string"
+          },
           "description": {
             "type": "string",
             "maxLength": 1000,
@@ -230,6 +235,9 @@
           "bookingTime": {
             "type": "string",
             "pattern": "^(?:[01]\\d|2[0-3]):[0-5]\\d$"
+          },
+          "venue": {
+            "type": "string"
           },
           "description": {
             "type": [

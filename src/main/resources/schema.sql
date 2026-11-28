@@ -4,6 +4,7 @@ CREATE TABLE bookings (
     customer_email VARCHAR(254) NOT NULL,
     booking_date DATE NOT NULL,
     booking_time TIME NOT NULL,
+    venue VARCHAR(255),
     description TEXT,
     status VARCHAR(20) NOT NULL,
     created_at TIMESTAMP NOT NULL,
